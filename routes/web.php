@@ -18,10 +18,6 @@ use App\Http\Controllers\Backend\AuthorController;
 |
 */
 
-Route::get('/home1', function () {
-    abort(403, 'Sorry !! You are Unauthorized to create any role !');
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -35,9 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
     
     Route::resource('author', 'Backend\AuthorController');
-    Route::resource('roles', 'Backend\RolesController', ['names' => 'admin.roles']);
-    Route::resource('users', 'Backend\UsersController', ['names' => 'admin.users']);
-    Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
+    
     Route::post('/logout/submit', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
 
     });
@@ -50,7 +44,4 @@ Route::group(['prefix' => 'admin'], function () {
     });
     // Logout Routes
 
-    // Forget Password Routes
-    Route::get('/password/reset', 'Backend\Auth\ForgetPasswordController@showLinkRequestForm')->name('admin.password.request');
-    Route::post('/password/reset/submit', 'Backend\Auth\ForgetPasswordController@reset')->name('admin.password.update');
 });
